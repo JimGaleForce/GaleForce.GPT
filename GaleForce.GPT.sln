@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.33516.290
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GaleForce.GPT", "GaleForce.GPT.csproj", "{6DF8559A-8A7F-4790-9453-07AA636A7AC8}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestGaleForce.GPT", "TestGaleForce.GPT\TestGaleForce.GPT.csproj", "{39C547C7-D117-4D95-A511-A11B5FDFD72C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6DF8559A-8A7F-4790-9453-07AA636A7AC8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6DF8559A-8A7F-4790-9453-07AA636A7AC8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6DF8559A-8A7F-4790-9453-07AA636A7AC8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6DF8559A-8A7F-4790-9453-07AA636A7AC8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{39C547C7-D117-4D95-A511-A11B5FDFD72C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{39C547C7-D117-4D95-A511-A11B5FDFD72C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{39C547C7-D117-4D95-A511-A11B5FDFD72C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{39C547C7-D117-4D95-A511-A11B5FDFD72C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {0B071B04-0FAF-4880-8D95-85C044355322}
+	EndGlobalSection
+EndGlobal

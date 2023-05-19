@@ -1,0 +1,34 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net6.0</TargetFramework>
+		<PackageId>GaleForce.GPT</PackageId>
+		<Authors>GaleForce</Authors>
+		<Copyright>2023 (c) GaleForce Software</Copyright>
+		<PackageProjectUrl>https://github.com/JimGaleForce/GaleForceCore</PackageProjectUrl>
+		<RepositoryUrl>https://github.com/JimGaleForce/GaleForceCore</RepositoryUrl>
+		<Description>Provides basic GPT capabilities.</Description>
+		<Version>1.0.0.1</Version>
+		<AssemblyVersion>1.0.0.1</AssemblyVersion>
+		<FileVersion>1.0.0.1</FileVersion>
+		<PackageReleaseNotes></PackageReleaseNotes>
+		<PackageLicenseFile>LICENSE</PackageLicenseFile>
+	</PropertyGroup>
+
+
+	<ItemGroup>
+		<Compile Remove="TestGaleForce.GPT\**" />
+		<EmbeddedResource Remove="TestGaleForce.GPT\**" />
+		<None Remove="TestGaleForce.GPT\**" />
+		<None Include="LICENSE">
+			<Pack>True</Pack>
+			<PackagePath></PackagePath>
+		</None>
+	</ItemGroup>
+
+
+	<ItemGroup>
+	  <ProjectReference Include="..\OpenAILib\OpenAILib\OpenAILib.csproj" />
+	</ItemGroup>
+
+</Project>
