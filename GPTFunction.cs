@@ -2,7 +2,6 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
     using OpenAILib;
@@ -157,6 +156,7 @@
         {
             Exception e = null;
             var count = retries;
+            var delay = DefaultRetryDelayMS;
             while (count-- > 0)
             {
                 try
@@ -167,7 +167,8 @@
                 catch (Exception ex)
                 {
                     Console.WriteLine(ex.Message);
-                    Thread.Sleep(1000); //todo: pass in service default
+                    Thread.Sleep(delay); //todo: pass in service default
+                    delay += delay;
                     e = ex;
                 }
             }
