@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
     using OpenAILib;
@@ -12,10 +13,11 @@
         {
         }
 
-        public GPTFunction(string instructions, GPTService service = null)
+        public GPTFunction(string instructions, GPTService service = null, string model = null)
         {
             this.Instructions = instructions;
             this.Service = service;
+            this.Model = model;
         }
 
         public string Instructions { get; set; }
@@ -23,6 +25,8 @@
         public string Prompt { get; set; }
 
         public GPTService Service { get; }
+
+        public string Model { get; set; }
 
         public GPTFunction SetInstruction(string instructions)
         {
@@ -49,7 +53,7 @@
                 throw new Exception("Missing service");
             }
 
-            return await this.Service.Do(this.On(prompt), retries);
+            return await this.Service.Do(this.On(prompt), retries, this.Model);
         }
     }
 
@@ -58,14 +62,22 @@
         public static int DefaultRetries = 3;
         public static int DefaultRetryDelayMS = 1000;
 
-        public GPTService(AzureOpenAIClient azureOpenAIClient)
+        public GPTService(AzureOpenAIClient azureOpenAIClient, string model = null)
         {
             this.AzureOpenAIClient = azureOpenAIClient;
+            if (!string.IsNullOrEmpty(model))
+            {
+                this.Model = model;
+            }
         }
 
-        public GPTService(OpenAIClient openAIClient)
+        public GPTService(OpenAIClient openAIClient, string model = null)
         {
             this.OpenAIClient = openAIClient;
+            if (!string.IsNullOrEmpty(model))
+            {
+                this.Model = model;
+            }
         }
 
         public AzureOpenAIClient AzureOpenAIClient { get; set; }
@@ -76,7 +88,12 @@
 
         public Func<string, string, string> FakeReturn { get; set; } //instructions, prompt, return
 
-        public async Task<string> Do(GPTFunction function, int retries = int.MinValue)
+        public string Model { get; set; }
+
+        public async Task<string> Do(
+            GPTFunction function,
+            int retries = int.MinValue,
+            string model = null)
         {
             if (retries == int.MinValue)
             {
@@ -104,14 +121,32 @@
             if (this.AzureOpenAIClient != null)
             {
                 return await this.Retry(
-                    () => this.AzureOpenAIClient.GetChatCompletionAsync(sequence),
+                    () => this.AzureOpenAIClient
+                        .GetChatCompletionAsync(
+                            sequence,
+                            (chatComp) =>
+                            {
+                                if (!string.IsNullOrEmpty(model ?? this.Model))
+                                {
+                                    chatComp.Model(model ?? this.Model);
+                                }
+                            }),
                     retries);
             }
 
             if (this.OpenAIClient != null)
             {
                 return await this.Retry(
-                    () => this.OpenAIClient.GetChatCompletionAsync(sequence),
+                    () => this.OpenAIClient
+                        .GetChatCompletionAsync(
+                            sequence,
+                            (chatComp) =>
+                            {
+                                if (!string.IsNullOrEmpty(model ?? this.Model))
+                                {
+                                    chatComp.Model(model ?? this.Model);
+                                }
+                            }),
                     retries);
             }
 
