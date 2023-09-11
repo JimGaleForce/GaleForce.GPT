@@ -1,10 +1,10 @@
 namespace TestGaleForce.GPT
 {
-    using GaleForce.GPT;
+    using GaleForce.GPT.Utilities;
     using OpenAILib;
 
     [TestClass]
-    public class UnitTest1
+    public class OpenAILibTests
     {
         private AzureOpenAIClient chat35Client;
 
@@ -23,19 +23,19 @@ namespace TestGaleForce.GPT
             string chat35Deploy = Environment.GetEnvironmentVariable("Chat35DeploymentId");
             string chatApi = Environment.GetEnvironmentVariable("ChatApiVersion");
 
-            this.chat35Client = new AzureOpenAIClient(
+            chat35Client = new AzureOpenAIClient(
                 apiKey: apiKey,
                 resourceName: resName,
                 deploymentId: chat35Deploy,
                 apiVersion: chatApi);
 
-            this.service = new GPTService(this.chat35Client);
+            service = new GPTService(chat35Client);
         }
 
         // [TestMethod]
         public async Task TestMethod1()
         {
-            var writeTextBackwards = new GPTFunction("Write text backwards", this.service);
+            var writeTextBackwards = new GPTFunction("Write text backwards", service);
             var result = await writeTextBackwards.ActOn("This is a test");
         }
     }

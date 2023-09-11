@@ -1,60 +1,11 @@
-﻿namespace GaleForce.GPT
+﻿namespace GaleForce.GPT.Utilities
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
     using OpenAILib;
-
-    public class GPTFunction
-    {
-        public GPTFunction()
-        {
-        }
-
-        public GPTFunction(string instructions, GPTService service = null, string model = null)
-        {
-            this.Instructions = instructions;
-            this.Service = service;
-            this.Model = model;
-        }
-
-        public string Instructions { get; set; }
-
-        public string Prompt { get; set; }
-
-        public GPTService Service { get; }
-
-        public string Model { get; set; }
-
-        public GPTFunction SetInstruction(string instructions)
-        {
-            this.Instructions = instructions;
-            return this;
-        }
-
-        public GPTFunction SetPrompt(string prompt)
-        {
-            this.Prompt = prompt;
-            return this;
-        }
-
-        public GPTFunction On(string prompt)
-        {
-            this.Prompt = prompt;
-            return this;
-        }
-
-        public async Task<string> ActOn(string prompt, int retries = int.MinValue)
-        {
-            if (this.Service == null)
-            {
-                throw new Exception("Missing service");
-            }
-
-            return await this.Service.Do(this.On(prompt), retries, this.Model);
-        }
-    }
 
     public class GPTService
     {
@@ -63,19 +14,19 @@
 
         public GPTService(AzureOpenAIClient azureOpenAIClient, string model = null)
         {
-            this.AzureOpenAIClient = azureOpenAIClient;
+            AzureOpenAIClient = azureOpenAIClient;
             if (!string.IsNullOrEmpty(model))
             {
-                this.Model = model;
+                Model = model;
             }
         }
 
         public GPTService(OpenAIClient openAIClient, string model = null)
         {
-            this.OpenAIClient = openAIClient;
+            OpenAIClient = openAIClient;
             if (!string.IsNullOrEmpty(model))
             {
-                this.Model = model;
+                Model = model;
             }
         }
 
@@ -89,10 +40,7 @@
 
         public string Model { get; set; }
 
-        public async Task<string> Do(
-            GPTFunction function,
-            int retries = int.MinValue,
-            string model = null)
+        public async Task<string> Do(GPTFunction function, int retries = int.MinValue, string model = null)
         {
             if (retries == int.MinValue)
             {
@@ -100,14 +48,14 @@
             }
 
             var sequence = new List<ChatMessage>();
-            var prompt = this.UseInstructionsInPrompt
+            var prompt = UseInstructionsInPrompt
                 ? (function.Instructions ?? string.Empty) + "\n" + function.Prompt
                 : function.Prompt;
-            var inst = this.UseInstructionsInPrompt ? null : function.Instructions;
+            var inst = UseInstructionsInPrompt ? null : function.Instructions;
 
-            if (this.FakeReturn != null)
+            if (FakeReturn != null)
             {
-                return this.FakeReturn(inst, prompt);
+                return FakeReturn(inst, prompt);
             }
 
             if (!string.IsNullOrEmpty(inst))
@@ -117,33 +65,33 @@
 
             sequence.Add(new ChatMessage(ChatRole.User, prompt));
 
-            if (this.AzureOpenAIClient != null)
+            if (AzureOpenAIClient != null)
             {
-                return await this.Retry(
-                    () => this.AzureOpenAIClient
+                return await Retry(
+                    () => AzureOpenAIClient
                         .GetChatCompletionAsync(
                             sequence,
                             (chatComp) =>
                             {
-                                if (!string.IsNullOrEmpty(model ?? this.Model))
+                                if (!string.IsNullOrEmpty(model ?? Model))
                                 {
-                                    chatComp.Model(model ?? this.Model);
+                                    chatComp.Model(model ?? Model);
                                 }
                             }),
                     retries);
             }
 
-            if (this.OpenAIClient != null)
+            if (OpenAIClient != null)
             {
-                return await this.Retry(
-                    () => this.OpenAIClient
+                return await Retry(
+                    () => OpenAIClient
                         .GetChatCompletionAsync(
                             sequence,
                             (chatComp) =>
                             {
-                                if (!string.IsNullOrEmpty(model ?? this.Model))
+                                if (!string.IsNullOrEmpty(model ?? Model))
                                 {
-                                    chatComp.Model(model ?? this.Model);
+                                    chatComp.Model(model ?? Model);
                                 }
                             }),
                     retries);
