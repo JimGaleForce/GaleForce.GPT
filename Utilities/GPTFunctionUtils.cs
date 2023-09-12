@@ -75,6 +75,11 @@
                     typex = "number";
                 }
 
+                if (typex == "int32")
+                {
+                    typex = "integer";
+                }
+
                 var propertyDict = new Dictionary<string, object> { { "type", typex } };
 
                 if (propertyAttr.Description != null)

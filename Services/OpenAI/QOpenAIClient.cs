@@ -115,7 +115,14 @@ namespace GaleForce.GPT.Services.OpenAI
             }
             else
             {
-                throw new Exception("API request failed:" + response.ToString() + payload);
+                throw new Exception(
+                    "API request failed:\nUrl:" +
+                        url +
+                        "\n\nContent:" +
+                        content +
+                        "\n\n" +
+                        response.ToString() +
+                        payload);
             }
         }
     }

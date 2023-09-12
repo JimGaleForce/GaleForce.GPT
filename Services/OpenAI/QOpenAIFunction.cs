@@ -44,6 +44,18 @@ namespace GaleForce.GPT.Services.OpenAI
             return attribute?.Name;
         }
 
+        public string GetDescription()
+        {
+            // Get the class's type
+            var type = GetType();
+
+            // Get the AIFunctionAttribute from the class
+            var attribute = (AIFunctionAttribute)Attribute.GetCustomAttribute(type, typeof(AIFunctionAttribute));
+
+            // Return the name from the attribute, or null if the attribute doesn't exist
+            return attribute?.Description;
+        }
+
         public object GetResult()
         {
             // Get the class's type
