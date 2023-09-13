@@ -120,6 +120,7 @@
             if (function == null)
             {
                 // Handle the case where the function doesn't exist in the list
+                // CHANGE TO RETURN NULL NEXT TIME - or solve ask
                 throw new Exception($"Function with name {name} does not exist in the provided list.");
             }
 
