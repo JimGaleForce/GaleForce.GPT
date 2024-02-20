@@ -28,8 +28,12 @@
 
 
 	<ItemGroup>
-	  <PackageReference Include="GaleForce.OpenAILib" Version="2.0.1" />
 	  <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+	</ItemGroup>
+
+
+	<ItemGroup>
+	  <ProjectReference Include="..\OpenAILib\OpenAILib\OpenAILib.csproj" />
 	</ItemGroup>
 
 </Project>
