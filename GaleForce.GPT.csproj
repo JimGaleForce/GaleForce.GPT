@@ -5,8 +5,8 @@
 		<PackageId>GaleForce.GPT</PackageId>
 		<Authors>GaleForce</Authors>
 		<Copyright>2023 (c) GaleForce Software</Copyright>
-		<PackageProjectUrl>https://github.com/JimGaleForce/GaleForceCore</PackageProjectUrl>
-		<RepositoryUrl>https://github.com/JimGaleForce/GaleForceCore</RepositoryUrl>
+		<PackageProjectUrl>https://github.com/JimGaleForce/GaleForce.GPT</PackageProjectUrl>
+		<RepositoryUrl>https://github.com/JimGaleForce/GaleForce.GPT</RepositoryUrl>
 		<Description>Provides basic GPT capabilities.</Description>
 		<Version>1.0.0.1</Version>
 		<AssemblyVersion>1.0.0.1</AssemblyVersion>
@@ -28,12 +28,8 @@
 
 
 	<ItemGroup>
+	  <PackageReference Include="GaleForce.OpenAILib" Version="2.0.1" />
 	  <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
-	</ItemGroup>
-
-
-	<ItemGroup>
-	  <ProjectReference Include="..\OpenAILib\OpenAILib\OpenAILib.csproj" />
 	</ItemGroup>
 
 </Project>

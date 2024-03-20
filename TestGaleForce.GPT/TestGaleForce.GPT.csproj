@@ -17,7 +17,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\AIServices\AIServices.csproj" />
     <ProjectReference Include="..\GaleForce.GPT.csproj" />
   </ItemGroup>
 
