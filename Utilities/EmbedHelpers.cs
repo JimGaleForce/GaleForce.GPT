@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace GaleForce.GPT.Utilities
@@ -38,6 +39,47 @@ namespace GaleForce.GPT.Utilities
             }
 
             return Math.Sqrt(distance);
+        }
+
+        public static double EuclideanDistance(this byte[] bvec1, byte[] bvec2)
+        {
+            var vec1 = bvec1.ToFloatArray();
+            var vec2 = bvec2.ToFloatArray();
+            double distance = 0;
+            for (int i = 0; i < vec1.Length; i++)
+            {
+                distance += Math.Pow(vec1[i] - vec2[i], 2);
+            }
+
+            return Math.Sqrt(distance);
+        }
+
+        public static Dictionary<int, double> GetEuclideanDistance(Dictionary<int, byte[]> data, byte[] target)
+        {
+            var targetVec = target.ToFloatArray();
+            var distances = new Dictionary<int, double>();
+            foreach (var item in data)
+            {
+                var value = item.Value.ToFloatArray();
+                var distance = value.EuclideanDistance(targetVec);
+                distances.Add(item.Key, distance);
+            }
+
+            return distances;
+        }
+
+        public static Dictionary<string, double> GetEuclideanDistance(Dictionary<string, byte[]> data, byte[] target)
+        {
+            var targetVec = target.ToFloatArray();
+            var distances = new Dictionary<string, double>();
+            foreach (var item in data)
+            {
+                var value = item.Value.ToFloatArray();
+                var distance = value.EuclideanDistance(targetVec);
+                distances.Add(item.Key, distance);
+            }
+
+            return distances;
         }
     }
 }

@@ -8,11 +8,12 @@
 		<PackageProjectUrl>https://github.com/JimGaleForce/GaleForce.GPT</PackageProjectUrl>
 		<RepositoryUrl>https://github.com/JimGaleForce/GaleForce.GPT</RepositoryUrl>
 		<Description>Provides basic GPT capabilities.</Description>
-		<Version>1.0.0.1</Version>
-		<AssemblyVersion>1.0.0.1</AssemblyVersion>
-		<FileVersion>1.0.0.1</FileVersion>
-		<PackageReleaseNotes></PackageReleaseNotes>
+		<Version>1.0.0.4</Version>
+		<AssemblyVersion>1.0.0.4</AssemblyVersion>
+		<FileVersion>1.0.0.4</FileVersion>
+		<PackageReleaseNotes>added Euclidean distance functions</PackageReleaseNotes>
 		<PackageLicenseFile>LICENSE</PackageLicenseFile>
+		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 	</PropertyGroup>
 
 
@@ -28,7 +29,7 @@
 
 
 	<ItemGroup>
-	  <PackageReference Include="GaleForce.OpenAILib" Version="2.0.1" />
+	  <PackageReference Include="GaleForce.OpenAILib" Version="2.0.3" />
 	  <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
 	</ItemGroup>
 
