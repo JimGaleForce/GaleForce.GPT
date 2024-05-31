@@ -20,9 +20,20 @@ namespace GaleForce.GPT.Utilities
             return bdata;
         }
 
-        public static float[] ToFloatArray(this byte[] data)
+        public static float[] ToFloatArray(this byte[] byteArray)
         {
-            return data.ToDoubleArray().ToFloatArray();
+            int floatCount = byteArray.Length / sizeof(float);
+            float[] floatArray = new float[floatCount];
+            Buffer.BlockCopy(byteArray, 0, floatArray, 0, byteArray.Length);
+            return floatArray;
+        }
+
+        public static byte[] ToByteArray(this float[] floatArray)
+        {
+            int byteCount = floatArray.Length * sizeof(float);
+            byte[] byteArray = new byte[byteCount];
+            Buffer.BlockCopy(floatArray, 0, byteArray, 0, byteCount);
+            return byteArray;
         }
 
         public static float[] ToFloatArray(this double[] data)
@@ -54,7 +65,9 @@ namespace GaleForce.GPT.Utilities
             return Math.Sqrt(distance);
         }
 
-        public static Dictionary<int, double> GetEuclideanDistance(Dictionary<int, byte[]> data, byte[] target)
+        public static Dictionary<int, double> GetEuclideanDistance(
+            Dictionary<int, byte[]> data,
+            byte[] target)
         {
             var targetVec = target.ToFloatArray();
             var distances = new Dictionary<int, double>();
@@ -68,7 +81,9 @@ namespace GaleForce.GPT.Utilities
             return distances;
         }
 
-        public static Dictionary<string, double> GetEuclideanDistance(Dictionary<string, byte[]> data, byte[] target)
+        public static Dictionary<string, double> GetEuclideanDistance(
+            Dictionary<string, byte[]> data,
+            byte[] target)
         {
             var targetVec = target.ToFloatArray();
             var distances = new Dictionary<string, double>();
